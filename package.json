@@ -1,6 +1,20 @@
 {
+  "name": "react-native-expo-ts-apollo",
   "main": "node_modules/expo/AppEntry.js",
+  "private": true,
   "scripts": {
+    "commit": "git-cz -S",
+    "lint": "eslint .",
+    "styleguide:build": "...",
+    "prettier:check": "prettier --check 'src/**/*.{js,jsx,ts,tsx,mdx}'",
+    "validate": "run-s test lint prettier:check",
+    "prerelease": "git-authors-cli && git add .",
+    "release": "standard-version",
+    "postrelease": "run-s release:*",
+    "release:tags": "git push --follow-tags origin master",
+    "release:github": "conventional-github-releaser -p angular",
+    "ci:validate": "rm -rf node_modules && npm ci && npm run validate",
+    "prepublishOnly": "npm run ci:validate && npm run build",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -9,25 +23,105 @@
     "test": "jest"
   },
   "dependencies": {
-    "expo": "^34.0.1",
-    "react": "16.8.3",
-    "react-dom": "^16.8.6",
+    "@apollo/react-hooks": "^3.0.1",
+    "apollo-cache-inmemory": "^1.6.3",
+    "apollo-client": "^2.6.4",
+    "apollo-link-schema": "^1.2.3",
+    "expo": "^34.0.4",
+    "expo-asset": "^6.0.0",
+    "expo-font": "^6.0.1",
+    "graphql": "^14.5.4",
+    "graphql-tag": "^2.10.1",
+    "graphql-tools": "^4.0.5",
+    "react": "^16.9.0",
+    "react-apollo": "^3.0.1",
+    "react-dom": "^16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
-    "react-native-web": "^0.11.4"
+    "react-native-web": "^0.11.4",
+    "react-navigation": "^4.0.0",
+    "react-navigation-stack": "^1.5.1",
+    "react-scripts": "^3.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@babel/runtime": "^7.5.5",
+    "@bahmutov/add-typescript-to-cypress": "^2.1.2",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@commitlint/travis-cli": "^8.1.0",
+    "@types/graphql": "^14.5.0",
     "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.3",
+    "@types/prop-types": "^15.7.1",
     "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.9.0",
     "@types/react-native": "^0.57.65",
+    "@types/react-navigation": "^3.0.8",
     "@types/react-test-renderer": "^16.9.0",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "^8.0.6",
     "babel-preset-expo": "^6.0.0",
+    "cache-loader": "^4.1.0",
+    "commitizen": "^4.0.3",
+    "cypress": "^3.4.1",
+    "cz-adapter-eslint": "^0.3.0",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^3.0.4",
     "jest": "^24.9.0",
     "jest-expo": "^34.0.1",
+    "lint-staged": "^9.2.5",
+    "metro-react-native-babel-preset": "^0.56.0",
+    "prettier": "^1.18.2",
+    "react-addons-test-utils": "^15.6.2",
     "react-native-testing-library": "^1.11.1",
     "react-native-typescript-transformer": "^1.2.13",
     "react-test-renderer": "^16.9.0",
     "ts-jest": "^24.0.2",
-    "typescript": "^3.6.2"
+    "typescript": "^3.6.2",
+    "webpack": "^4.39.3"
   },
-  "private": true
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.mdx": [
+      "prettier --write",
+      "git add"
+    ],
+    "src/**/*.{js,jsx,css,less,scss,ts,tsx,md}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "contributors": [
+    "Daryl <daryl@blpc.us>"
+  ]
 }

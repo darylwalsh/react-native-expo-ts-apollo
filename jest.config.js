@@ -1,20 +1,44 @@
+// jest.config.js
+const { defaults: tsjPreset } = require("ts-jest/presets");
+
 module.exports = {
-  preset: "ts-jest",
-  testEnvironment: "node",
+  ...tsjPreset,
+  preset: "react-native",
   transform: {
-    "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
-    "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
+    ...tsjPreset.transform,
+    "\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js",
   },
   globals: {
     "ts-jest": {
-      tsConfig: "tsconfig.json",
+      babelConfig: true,
     },
   },
-  moduleFileExtensions: ["ts", "tsx", "js"],
-  testRegex: "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-  testPathIgnorePatterns: ["\\.snap$", "<rootDir>/node_modules/"],
+  // This is the only part which you can keep
+  // from the above linked tutorial's config:
   cacheDirectory: ".jest/cache",
 };
+
+// const { defaults: tsjPreset } = require("ts-jest/presets");
+
+// module.exports = {
+//   ...tsjPreset,
+//   preset: "react-native",
+//   testEnvironment: "node",
+//   transform: {
+//     "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+//     "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
+//   },
+//   globals: {
+//     "ts-jest": {
+//       babelConfig: true,
+//       tsConfig: "tsconfig.json",
+//     },
+//   },
+//   moduleFileExtensions: ["ts", "tsx", "js"],
+//   testRegex: "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+//   testPathIgnorePatterns: ["\\.snap$", "<rootDir>/node_modules/"],
+//   cacheDirectory: ".jest/cache",
+// };
 
 // module.exports = {
 //   jest: {
