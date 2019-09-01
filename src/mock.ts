@@ -6,12 +6,12 @@ type Query {
   posts: [Post]
 }
 type Post {
-  id: Number!,
+  id: Int!,
   text: String!,
-  year: Number!,
+  year: Int!,
 }
 type Mutation {
-  addPost(text: String!): Post
+  addPost(id: Int!, text: String!, year: Int!): Post
 }
 `
 

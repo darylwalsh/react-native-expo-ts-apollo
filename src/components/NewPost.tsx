@@ -1,8 +1,9 @@
 import gql from 'graphql-tag'
 import React, { FC, useState } from 'react'
-import { TextInput } from 'react-native'
 
 import { useMutation } from '@apollo/react-hooks'
+
+import MyTextInput from './CustomTextInput'
 
 const ADD_POST = gql`
   mutation addPost($text: String!) {
@@ -34,18 +35,19 @@ export const NewPost: FC = () => {
     variables: { post: { id, text, year } },
   })
 
-  return (
-    <div>
-      <h3>Add a Post</h3>
-      {error ? <p>Oh no! {error.message}</p> : null}
-      {data && data.addPost ? <p>Saved!</p> : null}
-      <form>
-        <p>
-          <label>Text</label>
-          <input name="text" onChange={e => setText(e.currentTarget.value)} />
-        </p>
-        <button onClick={() => text && addPost()}>Add</button>
-      </form>
-    </div>
-  )
+  return <MyTextInput onSubmit={() => text && addPost()} />
 }
+// return (
+//   <div>
+//     <h3>Add a Post</h3>
+//     {error ? <p>Oh no! {error.message}</p> : null}
+//     {data && data.addPost ? <p>Saved!</p> : null}
+//     <form>
+//       <p>
+//         <label>Text</label>
+//         <input name="text" onChange={e => setText(e.currentTarget.value)} />
+//       </p>
+//       <button onClick={}>Add</button>
+//     </form>
+//   </div>
+// )
