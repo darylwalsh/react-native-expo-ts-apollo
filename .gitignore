@@ -28,6 +28,9 @@ yarn-error.log*
 node_modules/**/*
 .expo/*
 .expo-shared/
+.expo-shared/*
+/.expo-shared/*
+/.expo-shared/
 .idea/
 npm-debug.*
 *.jks
